@@ -206,7 +206,8 @@ export class RegisterComponent implements OnInit {
     const newUser = {
       email: user.email,
       username: user.firstName,
-      password: "Google@123"
+      password: "Google@123",
+      isAdmin: true,
     }
 
     // Function from authentication service to register user
