@@ -21,6 +21,9 @@ export class RegisterComponent implements OnInit {
   usernameMessage: any;
   hide = true;
 
+  // User Privilages
+  privilages: string[] = ['Admin', 'Normal User'];
+
   constructor(
     private _snackBar: MatSnackBar,
     private formBuilder: FormBuilder,
@@ -60,7 +63,8 @@ export class RegisterComponent implements OnInit {
         this.validatePassword // Custom validation
       ])],
       // Confirm Password Input
-      confirm: ['', Validators.required] // Field is required
+      confirm: ['', Validators.required], // Field is required
+      privilage: ['', Validators.required]
     }, { validator: this.matchingPasswords('password', 'confirm') }); // Add custom validator to form for matching passwords
   }
 
@@ -70,6 +74,7 @@ export class RegisterComponent implements OnInit {
     this.form.controls['username'].disable();
     this.form.controls['password'].disable();
     this.form.controls['confirm'].disable();
+    this.form.controls['privilage'].disable();
   }
 
   // Function to enable the registration form
@@ -78,6 +83,7 @@ export class RegisterComponent implements OnInit {
     this.form.controls['username'].enable();
     this.form.controls['password'].enable();
     this.form.controls['confirm'].enable();
+    this.form.controls['privilage'].disable();
   }
 
   // Function to validate e-mail is proper format
@@ -136,9 +142,9 @@ export class RegisterComponent implements OnInit {
     const user = {
       email: this.form.get('email').value, // E-mail input field
       username: this.form.get('username').value, // Username input field
-      password: this.form.get('password').value // Password input field
+      password: this.form.get('password').value, // Password input field
+      isAdmin: (this.form.get('privilage').value === 'Admin') ? true : false
     }
-
     // Function from authentication service to register user
     this.authService.registerUser(user).subscribe((data: any) => {
       // Resposne from registration attempt

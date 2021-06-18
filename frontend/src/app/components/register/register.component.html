@@ -64,6 +64,16 @@
         || (form.errors?.matchingPasswords && form.controls.confirm.dirty)">Passwords don't match</mat-error>
     </mat-form-field>
 
+    <br>
+    <mat-form-field appearance="fill" [ngClass]="{'has-error':form.controls.privilage.dirty}">
+        <mat-label>User Privilege</mat-label>
+        <mat-select name='privilage' formControlName="privilage">
+            <mat-option *ngFor="let privilage of privilages" [value]="privilage">
+                {{privilage}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
     <div class="example-button-row">
         <button mat-button color="primary" type="submit" value="Submit" mat-raised-button color="primary"
             [disabled]="!form.valid">

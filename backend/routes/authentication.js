@@ -65,7 +65,7 @@ module.exports = (router) => {
                         email: req.body.email.toLowerCase(),
                         username: req.body.username.toLowerCase(),
                         password: req.body.password,
-                        isAdmin: false
+                        isAdmin: req.body.isAdmin
                     });
                     // Save user to database
                     user.save((err) => {
