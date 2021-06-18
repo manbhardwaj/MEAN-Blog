@@ -1,0 +1,40 @@
+<div *ngIf="blog" class="col-sm-8 my-auto mx-auto mt-5">
+
+    <h1 class="posttitle mat-display-3 text-center">{{ blog.title }}</h1>
+
+    <p class="mat-headline">{{ blog.body }}</p>
+    <br>
+    <mat-card>
+        <mat-card-header>
+            <div mat-card-avatar class="example-header-image"></div>
+            <mat-card-title>By {{blog.createdBy}}</mat-card-title>
+            <mat-card-subtitle>Published on: {{ blog.createdAt | date:'MMM dd, yyyy' }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+            <button *ngIf="username !== blog.createdBy" (click)="likeBlog(blog._id)" mat-mini-fab color="primary"
+                aria-label="Example icon button with a menu icon">
+                <mat-icon matBadgePosition="before" matBadge={{blog.likes}} matBadgeColor="warn">thumb_up</mat-icon>
+            </button>
+            <button *ngIf="username !== blog.createdBy" (click)="dislikeBlog(blog._id)" mat-mini-fab color="warn"
+                aria-label="Example icon button with a menu icon">
+                <mat-icon matBadgePosition="after" matBadge={{blog.dislikes}} matBadgeColor="warn">thumb_down
+                </mat-icon>
+            </button>
+            <div>
+                <div *ngIf="username === blog.createdBy">
+                    <strong>Likes: </strong> {{ blog.likes }}
+                    <strong>Dislikes: </strong> {{ blog.dislikes }}
+                </div>
+            </div>
+        </mat-card-content>
+    </mat-card>
+    <br>
+    <div class="example-button-row">
+        <a [routerLink]="['/edit-blog/', blog._id]" *ngIf="username === blog.createdBy"><button type="button"
+                name="button" mat-raised-button color="primary">Edit</button></a>
+
+        <a [routerLink]="['/delete-blog/', blog._id]" *ngIf="username === blog.createdBy"><button type="button"
+                name="button" mat-raised-button color="warn">Delete</button></a>
+    </div>
+    <br>
+</div>

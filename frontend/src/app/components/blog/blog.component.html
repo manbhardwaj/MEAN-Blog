@@ -1,0 +1,98 @@
+<h1 class="page-header">Blog Feed</h1>
+
+<!-- Custom Success/Error Message -->
+<div class="row show-hide-message" *ngIf="message && newPost">
+    <div [ngClass]="messageClass">
+        {{ message }}
+    </div>
+</div>
+
+<!-- New Post Button -->
+<div class="example-button-row">
+    <button mat-raised-button color="accent" *ngIf="!newPost" (click)="newBlogForm()">New Blog</button>
+    <button [disabled]="loadingBlogs" mat-raised-button color="warn" *ngIf="!newPost"
+        (click)="reloadBlogs()">Reload</button>
+</div>
+<br />
+<br />
+
+<!-- New Blog Form -->
+<form [formGroup]="form" name="blogForm" (submit)="onBlogSubmit()" *ngIf="newPost">
+    <!-- Title Input -->
+    <div class="form-group">
+        <label for="title">Title</label>
+        <div
+            [ngClass]="{'has-success': form.controls.title.valid, 'has-error': form.controls.title.dirty && form.controls.title.errors}">
+            <!-- Title Input -->
+            <input type="text" name="title" class="form-control" placeholder="*Blog Title" autocomplete="off"
+                formControlName="title" />
+            <!-- Validation -->
+            <ul class="help-block">
+                <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.required">This field is required.
+                </li>
+                <li
+                    *ngIf="(form.controls.title.dirty && form.controls.title.errors?.minlength) || (form.controls.title.dirty && form.controls.title.errors?.maxlength)">
+                    Max length: 50, Min length: 15</li>
+                <li *ngIf="form.controls.title.dirty && form.controls.title.errors?.alphaNumericValidation">Must be a
+                    letter or number</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Body Input -->
+    <div class="form-group">
+        <label for="body">Body</label>
+        <div
+            [ngClass]="{'has-success': form.controls.body.valid, 'has-error': form.controls.body.dirty && form.controls.body.errors}">
+            <!-- Body Input -->
+            <textarea name="body" rows="8" cols="80" placeholder="*Body" class="form-control"
+                formControlName="body"></textarea>
+            <!-- Validation -->
+            <ul class="help-block">
+                <li *ngIf="form.controls.body.dirty && form.controls.body.errors?.required">This field is required.</li>
+                <li
+                    *ngIf="(form.controls.body.dirty && form.controls.body.errors?.minlength) || (form.controls.body.dirty && form.controls.body.errors?.maxlength)">
+                    Max length: 2000, Min length: 15</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="example-button-row">
+        <a><button [disabled]="processing" mat-raised-button color="accent" type="button" name="button"
+                (click)="goBack()">Go
+                Back</button></a>
+
+        <a><button [disabled]="processing || !form.valid" type="submit" name="button" mat-raised-button
+                color="primary">Submit</button></a>
+    </div>
+
+</form>
+<!-- New Blog Form -->
+
+<div class="content" *ngIf="!newPost">
+    <div fxLayout="row wrap" fxLayoutGap="16px grid">
+        <div fxFlex="25%" fxFlex.xs="100%" fxFlex.sm="33%" *ngFor="let blog of blogPosts">
+            <mat-card class="mat-elevation-z4 flex-column">
+                <mat-card-header>
+                    <div mat-card-avatar class="example-header-image"></div>
+                    <mat-card-title>{{ blog.title }}</mat-card-title>
+                    <mat-card-subtitle>By {{blog.createdBy}}</mat-card-subtitle>
+                </mat-card-header>
+                <mat-card-content>
+                    <p>
+                        {{ (blog.body.length > 50) ? (blog.body | slice:0:50)+"...": blog.body}}
+                    </p>
+                </mat-card-content>
+                <mat-card-content class="d-flex flex-column">
+                    <strong>Published on:</strong> {{blog.createdAt | date:'MMM dd, yyyy'}}
+                    <button class="mt-auto" mat-raised-button color="primary"
+                        [routerLink]="['/show-blog/', blog._id]">READ
+                        MORE</button>
+                </mat-card-content>
+                <mat-card-footer>
+
+                </mat-card-footer>
+            </mat-card>
+        </div>
+    </div>
+</div>

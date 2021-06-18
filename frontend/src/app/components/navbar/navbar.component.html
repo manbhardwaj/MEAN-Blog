@@ -1,0 +1,27 @@
+<mat-toolbar class="sticky-top" color="primary">
+    <a routerLink="/blog"><span>Blogster</span></a>
+
+    <span class="example-spacer"></span>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon"
+        *ngIf="authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+        routerLink="/blog">
+        <mat-icon>home</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon"
+        *ngIf="!authService.loggedIn()" routerLink="/login">
+        <mat-icon>tag_faces</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon"
+        *ngIf="!authService.loggedIn()" [routerLinkActive]="['active']" [routerLinkActiveOptions]="{exact:true}"
+        routerLink="/register">
+        <mat-icon>how_to_reg</mat-icon>
+    </button>
+    <!-- Profile dropdowm -->
+    <button mat-button [matMenuTriggerFor]="menu" mat-icon-button class="example-icon favorite-icon"
+        aria-label="Example icon-button with heart icon" *ngIf="authService.loggedIn()">
+        <mat-icon>face</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+        <button mat-menu-item *ngIf="authService.loggedIn()" (click)="onLogoutClick()">Logout</button>
+    </mat-menu>
+</mat-toolbar>
