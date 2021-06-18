@@ -12,7 +12,7 @@ const authentication = require('./routes/authentication')(router);
 const blogs = require('./routes/blogs')(router);
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 80;
 
 // Initialize mongoose
 mongoose.Promise = global.Promise;
@@ -29,7 +29,7 @@ mongoose.connect(config.uri, {
 });
 
 // Middleware
-app.use(cors({ origin: 'http://localhost:4200' })); // Allows cross origin in development only
+// app.use(cors({ origin: 'http://localhost:4200' })); // Allows cross origin in development only
 app.use(express.urlencoded({ extended: false })); // parse application/x-www-form-urlencoded
 app.use(express.json()); // parse application/json
 app.use(express.static(__dirname + '/public')); // Provide static directory for frontend
