@@ -12,7 +12,7 @@ const authentication = require('./routes/authentication')(router);
 const blogs = require('./routes/blogs')(router);
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const port = process.env.PORT || 80;
+const port = process.env.NODE_ENV === 'production' ? (process.env.PORT || 80) : 4000;
 
 // Initialize mongoose
 mongoose.Promise = global.Promise;
