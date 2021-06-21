@@ -15,16 +15,14 @@
         <mat-label>Enter username</mat-label>
         <input matInput #input placeholder="Ex. manthan" name="username" formControlName="username">
         <mat-error *ngIf="form.controls.username.errors?.required 
-            && form.controls.username.dirty && (form.controls.username.errors?.minlength 
-            && form.controls.username.dirty || form.controls.username.errors?.maxlength 
-            || form.controls.username.dirty) 
+            || (form.controls.username.errors?.minlength && form.controls.username.dirty)
+            || (form.controls.username.errors?.maxlength && form.controls.username.dirty) 
             || (form.controls.username.errors?.validateUsername && form.controls.username.dirty)">
             This field is
-            required.</mat-error>
+            required.(Min 5 - Max 30 characters)</mat-error>
     </mat-form-field>
-
     <br>
-
+    <br>
     <mat-form-field appearance="fill" [ngClass]="{'has-error': (form.controls.email.errors && form.controls.email.dirty) 
         || (!emailValid && form.controls.email.dirty), 'has-success': !form.controls.email.errors && emailValid}">
         <mat-label>Enter email</mat-label>
@@ -45,12 +43,13 @@
             [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
-        <mat-error *ngIf="form.controls.password.errors?.required && form.controls.password.dirty
-        || (form.controls.password.errors?.minlength && form.controls.password.dirty 
-        || form.controls.password.errors?.maxlength && form.controls.password.dirty)
-        || (form.controls.password.errors?.validatePassword && form.controls.password.dirty)">This field is
-            required.</mat-error>
+        <mat-error *ngIf="(form.controls.password.errors?.required)
+        || (form.controls.password.errors?.minlength && form.controls.password.dirty) 
+        || (form.controls.password.errors?.maxlength && form.controls.password.dirty)
+        || (form.controls.password.errors?.validatePassword && form.controls.password.dirty)">Required: Must
+            be alphanumeric with min 1 special character.(Min 8 - Max 35 characters)</mat-error>
     </mat-form-field>
+    <br>
     <br>
     <mat-form-field appearance="fill"
         [ngClass]="{'has-error': (form.controls.confirm.errors && form.controls.confirm.dirty) || (form.errors?.matchingPasswords && form.controls.confirm.dirty), 'has-success': !form.controls.confirm.errors && !form.errors?.matchingPasswords}">
@@ -60,10 +59,13 @@
             [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </button>
-        <mat-error *ngIf="form.controls.confirm.errors?.required && form.controls.confirm.dirty
-        || (form.errors?.matchingPasswords && form.controls.confirm.dirty)">Passwords don't match</mat-error>
+        <mat-error *ngIf="form.controls.confirm.errors?.required">This is a required field.
+        </mat-error>
+        <mat-error *ngIf="(form.controls.confirm.errors?.required && form.controls.confirm.dirty)
+        || (form.errors?.matchingPasswords && form.controls.confirm.dirty)">Passwords don't match
+        </mat-error>
     </mat-form-field>
-
+    <br>
     <br>
     <mat-form-field appearance="fill" [ngClass]="{'has-error':form.controls.privilage.dirty}">
         <mat-label>User Privilege</mat-label>
@@ -73,13 +75,16 @@
             </mat-option>
         </mat-select>
     </mat-form-field>
-
+    <br>
+    <br>
     <div class="example-button-row">
         <button mat-button color="primary" type="submit" value="Submit" mat-raised-button color="primary"
             [disabled]="!form.valid">
-            <mat-icon>face</mat-icon> Login
+            <mat-icon>face</mat-icon> Register
         </button>
-        <button mat-button mat-raised-button color="accent" (click)="signInWithGoogle()">Google SignIn</button>
+        <button mat-button mat-raised-button color="primary" class="googleIcon" (click)="signInWithGoogle()">Register
+            with
+            google</button>
     </div>
     <br>
     <br>

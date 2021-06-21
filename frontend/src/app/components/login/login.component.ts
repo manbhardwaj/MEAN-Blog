@@ -76,6 +76,7 @@ export class LoginComponent implements OnInit {
         this.message = data.message; // Set success message
         // Function to store user's token in client local storage
         this.authService.storeUserData(data.token, data.user);
+        window.location.reload();
         // After 0.5 seconds, redirect to dashboard page
         setTimeout(() => {
           // Check if user was redirected or logging in for first time

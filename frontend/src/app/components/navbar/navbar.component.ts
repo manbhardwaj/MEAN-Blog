@@ -10,6 +10,7 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavbarComponent implements OnInit {
   user: any;
+  isUserAdmin = false;
 
   constructor(
     private _snackBar: MatSnackBar,
@@ -32,6 +33,7 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.authService.getProfile().subscribe((data: any) => {
       this.user = data.user;
+      this.isUserAdmin = this.authService.isUserAdmin();
     })
   }
 

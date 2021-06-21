@@ -8,6 +8,10 @@
         <mat-icon>home</mat-icon>
     </button>
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon"
+        *ngIf="isUserAdmin" routerLink="/approve-blogs">
+        <mat-icon>library_add</mat-icon>
+    </button>
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon"
         *ngIf="!authService.loggedIn()" routerLink="/login">
         <mat-icon>tag_faces</mat-icon>
     </button>

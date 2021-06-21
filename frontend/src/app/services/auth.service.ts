@@ -63,6 +63,7 @@ export class AuthService {
     this.authToken = null; // Set token to null
     this.user = null; // Set user to null
     localStorage.clear(); // Clear local storage
+    window.location.reload();
   }
 
   // Function to store user's data in client local storage
@@ -94,7 +95,7 @@ export class AuthService {
   }
 
   isUserAdmin() {
-    if (localStorage.getItem('token') && localStorage.getItem('isAdmin')) {
+    if (localStorage.getItem('token') && localStorage.getItem('isAdmin') === 'true') {
       return true;
     }
     return false;
